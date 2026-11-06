@@ -1,0 +1,92 @@
+/* 本文件由 scripts/build.mjs 生成，请勿手改。
+ * 真相源：fe-shared/shared/tokens.css
+ * 命名空间：--tb-*（与三站私有变量隔离）
+ * 构建：确定性输出（不含时间戳）
+ */
+
+:root {
+  --tb-ink: #F4F5F9;
+  --tb-ink2: #FFFFFF;
+  --tb-ink3: #F1F2FA;
+  --tb-line: #E3E6F0;
+  --tb-line2: #C7CBEE;
+  --tb-paper: #1E1B39;
+  --tb-mute: #5B6079;
+  --tb-mute2: #8A90A8;
+  --tb-brand-50: #EEF1FB;
+  --tb-brand-100: #E0E5FA;
+  --tb-brand-200: #C2CBF2;
+  --tb-brand-400: #7B82E0;
+  --tb-brand-500: #5B63D6;
+  --tb-brand-600: #4F46E5;
+  --tb-brand-700: #4338CA;
+  --tb-brand-800: #3730A3;
+  --tb-brand-900: #2E2588;
+  --tb-brand: var(--tb-brand-600);
+  --tb-brand-hover: #4338CA;
+  --tb-brand-active: var(--tb-brand-800);
+  --tb-brand-subtle: var(--tb-brand-100);
+  --tb-brand-ring: rgba(79, 70, 229, .22);
+  --tb-on-brand: #FFFFFF;
+  --tb-ember: #F59E0B;
+  --tb-ember-dim: #D97706;
+  --tb-ember-soft: rgba(245, 158, 11, .16);
+  --tb-teal: #0FA3A8;
+  --tb-teal-soft: rgba(15, 163, 168, .14);
+  --tb-teal-text: #0E8E92;
+  --tb-success: #059669;
+  --tb-warning: #D97706;
+  --tb-danger: #E11D48;
+  --tb-amber: #F59E0B;
+  --tb-disp: 'Space Grotesk', 'Sora', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --tb-ui: 'Sora', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --tb-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --tb-r-card: 18px;
+  --tb-r-btn: 11px;
+  --tb-r-pill: 999px;
+  --tb-font-display: var(--tb-disp);
+  --tb-font-sans: var(--tb-ui);
+  --tb-indigo: var(--tb-brand);
+  --tb-indigo-hover: var(--tb-brand-hover);
+  --tb-indigo-bright: var(--tb-brand-hover);
+  --tb-indigo-faint: rgba(79, 70, 229, .045);
+
+  /* ── 组件层自有（几何 / 动效 / 层级，非品牌色） ── */
+  --tb-s1: 4px;  --tb-s2: 8px;  --tb-s3: 12px; --tb-s4: 16px;
+  --tb-s5: 20px; --tb-s6: 24px; --tb-s8: 32px; --tb-s10: 40px;
+  --tb-s12: 48px; --tb-s16: 64px;
+  --tb-tap: 44px;
+  --tb-container: 1200px;
+  --tb-e1: 0 1px 2px rgba(30,27,57,.05);
+  --tb-e2: 0 2px 6px rgba(30,27,57,.06), 0 8px 24px rgba(30,27,57,.07);
+  --tb-e3: 0 8px 20px rgba(30,27,57,.10), 0 24px 56px rgba(30,27,57,.13);
+  --tb-dur-fast: 150ms;
+  --tb-dur-base: 260ms;
+  --tb-z-overlay: 300; --tb-z-modal: 400; --tb-z-toast: 500;
+  /* 字体别名：fe-shared 的 --font-mono 映射为 --tb-font-mono */
+  --tb-mono: var(--tb-font-mono);
+}
+
+html[data-theme="dark"] {
+  --tb-ink: #12131F;
+  --tb-ink2: #1A1B2E;
+  --tb-ink3: #222336;
+  --tb-line: #2D2E48;
+  --tb-line2: #3A3C5A;
+  --tb-paper: #E8EAF4;
+  --tb-mute: #9AA0BC;
+  --tb-mute2: #6B7090;
+  --tb-brand-600: #6366F1;
+  --tb-brand-700: #818CF8;
+  --tb-brand: #818CF8;
+  --tb-brand-hover: #A5B4FC;
+  --tb-brand-subtle: #20224A;
+  --tb-brand-ring: rgba(129, 140, 248, .30);
+  --tb-on-brand: #0E1026;
+  --tb-ember-soft: rgba(245, 158, 11, .16);
+  --tb-teal-soft: rgba(15, 163, 168, .15);
+  --tb-teal-text: #2CC7CC;
+  --tb-indigo: var(--tb-brand);
+  --tb-indigo-hover: var(--tb-brand-hover);
+  --tb-indigo-bright: var(--tb-brand-hover);
+}

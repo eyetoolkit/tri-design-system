@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F4F5F9">
+<title>TRI-BRAND UI v2 · 组件层预览与验证</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234F46E5'/%3E%3Crect x='9' y='9' width='14' height='14' rx='3' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E">
+<style>
+@font-face{font-family:'Sora';font-style:normal;font-weight:400 800;font-display:swap;src:url('../src/fonts/sora-latin.woff2') format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:400 700;font-display:swap;src:url('../src/fonts/space-grotesk-latin.woff2') format('woff2')}
+</style>
+<link rel="stylesheet" href="./dist/tri-ui.css">
+<style>
+/* 预览页自身的排布外壳（不属于设计系统产物） */
+body{margin:0}
+.pv-wrap{max-width:1100px;margin:0 auto;padding:24px}
+.pv-sec{margin:26px 0}
+.pv-h{font-family:var(--tb-disp);font-size:15px;font-weight:700;color:var(--tb-paper);margin-bottom:3px}
+.pv-s{font-size:11px;color:var(--tb-mute);margin-bottom:12px}
+.pv-panel{background:var(--tb-ink);border:1px solid var(--tb-line);border-radius:12px;padding:20px}
+.pv-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.pv-grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.pv-grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.pv-tag{font-family:var(--tb-mono);font-size:10px;color:var(--tb-mute);border:1px solid var(--tb-line);border-radius:5px;padding:2px 7px;background:var(--tb-ink2)}
+.pv-chess{display:grid;grid-template-columns:repeat(8,1fr);width:200px;height:200px;border:3px solid var(--tb-brand-800);border-radius:6px;overflow:hidden}
+.pv-chess i{display:grid;place-items:center}
+.pv-chess i.l{background:#E8EBF7}.pv-chess i.d{background:#A9B0D8}
+.pv-piece{width:70%;height:70%;border-radius:50%;border:2.5px solid var(--tb-paper);background:transparent}
+.pv-piece.f{background:var(--tb-paper)}
+.pv-piece.last{box-shadow:0 0 0 3px var(--tb-ember-soft),0 0 0 5px var(--tb-ember)}
+@media(max-width:767px){.pv-grid3,.pv-grid2{grid-template-columns:1fr}.pv-wrap{padding:16px}}
+</style>
+</head>
+<body>
+<div class="tb-scope">
+  <header class="tb-header">
+    <div class="tb-brand"><span class="tb-brand__mark"></span>tribrand</div>
+    <nav class="tb-nav"><a aria-current="page">Home</a><a>Games</a><a>Rank</a><a>How to play</a></nav>
+    <div class="tb-header__actions">
+      <button class="tb-btn tb-btn--sm tb-btn--outline" id="themeBtn" type="button">切换暗色</button>
+      <button class="tb-btn tb-btn--sm tb-btn--primary" type="button">Play now</button>
+    </div>
+  </header>
+
+  <section class="tb-hero-band">
+    <div class="tb-container">
+      <div class="tb-caption" style="color:rgba(255,255,255,.8);letter-spacing:.16em;text-transform:uppercase">TRI-BRAND UI · V2 COMPONENT LAYER</div>
+      <h1 class="tb-display" style="margin:10px 0">One system, three arenas.</h1>
+      <p class="tb-body" style="max-width:620px">命名空间隔离的共享组件层预览：令牌 <span class="tb-mono">--tb-*</span>、组件 <span class="tb-mono">.tb-*</span>，与三站存量皮肤零冲突。</p>
+      <div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap">
+        <a class="tb-hero-cta">Start playing</a><a class="tb-hero-cta tb-hero-cta--alt">Invite a friend</a>
+      </div>
+    </div>
+  </section>
+
+  <main class="pv-wrap">
+
+    <div class="pv-sec">
+      <div class="pv-h">Buttons · 主 CTA 靛蓝，琥珀仅高光</div>
+      <div class="pv-s">全部 min-height 44px；focus-visible 2px outline；disabled / busy 状态齐备。</div>
+      <div class="pv-panel">
+        <div class="pv-row">
+          <button class="tb-btn tb-btn--primary" type="button">Play now</button>
+          <button class="tb-btn tb-btn--ember" type="button">Start a duel</button>
+          <button class="tb-btn tb-btn--outline" type="button">Invite a friend</button>
+          <button class="tb-btn tb-btn--ghost" type="button">How to play</button>
+          <button class="tb-btn tb-btn--danger" type="button">Leave room</button>
+          <button class="tb-btn tb-btn--primary" type="button" disabled>Disabled</button>
+        </div>
+        <div class="pv-row" style="margin-top:12px">
+          <button class="tb-btn tb-btn--sm tb-btn--primary" type="button">Small 36</button>
+          <button class="tb-btn tb-btn--lg tb-btn--primary" type="button">Large 52</button>
+          <button class="tb-btn tb-btn--outline" id="toastBtn" type="button">触发 Toast</button>
+          <button class="tb-btn tb-btn--outline" id="modalBtn" type="button">打开 Modal</button>
+          <button class="tb-icon-btn" type="button" aria-label="设置">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="pv-sec">
+      <div class="pv-h">Cards / Chips / Tabs</div>
+      <div class="pv-s">18px 圆角、hover 抬升 3px；状态色全部走语义令牌。</div>
+      <div class="pv-panel">
+        <div class="pv-grid3">
+          <div class="tb-card tb-card--interactive"><span class="tb-chip">1v1</span><div class="tb-card__title" style="margin-top:10px">Chess</div><div class="tb-card__body">Classic 8×8 board. Play a friend or the AI.</div></div>
+          <div class="tb-card tb-card--interactive"><span class="tb-chip tb-chip--ember">Daily</span><div class="tb-card__title" style="margin-top:10px">24 Game</div><div class="tb-card__body">Four numbers, one target. Make 24.</div></div>
+          <div class="tb-card tb-card--interactive"><span class="tb-chip tb-chip--teal">Live</span><div class="tb-card__title" style="margin-top:10px">Quiz Duel</div><div class="tb-card__body">Answer first. Win the duel.</div></div>
+        </div>
+        <div class="pv-row" style="margin-top:14px">
+          <span class="tb-chip tb-chip--ok"><span class="tb-dot"></span>Online</span>
+          <span class="tb-chip">Round 3 / 10</span>
+          <span class="tb-chip tb-chip--ember">+15 pts</span>
+          <span class="tb-chip tb-chip--danger">Disconnected</span>
+        </div>
+        <div class="tb-tabs" style="margin-top:18px" role="tablist">
+          <button class="tb-tab" role="tab" aria-selected="true" type="button">All games</button>
+          <button class="tb-tab" role="tab" aria-selected="false" type="button">Puzzle</button>
+          <button class="tb-tab" role="tab" aria-selected="false" type="button">Board</button>
+          <button class="tb-tab" role="tab" aria-selected="false" type="button">Daily</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="pv-grid2 pv-sec">
+      <div>
+        <div class="pv-h">Form · 错误态不只靠颜色</div>
+        <div class="pv-s">focus 3px brand-ring；aria-invalid 同时给描边与「!」文字。</div>
+        <div class="pv-panel">
+          <div class="tb-field" style="margin-bottom:14px">
+            <label class="tb-field__label" for="rc">Room code</label>
+            <input class="tb-input" id="rc" placeholder="e.g. K7M3QP">
+            <span class="tb-field__hint">6 characters, letters and digits</span>
+          </div>
+          <div class="tb-field" style="margin-bottom:14px">
+            <label class="tb-field__label" for="bad">Invalid state</label>
+            <input class="tb-input" id="bad" value="ABC" aria-invalid="true">
+            <span class="tb-field__hint tb-field__hint--error">Code must be 6 characters</span>
+          </div>
+          <button class="tb-btn tb-btn--primary tb-btn--block" type="button">Join room</button>
+        </div>
+      </div>
+      <div>
+        <div class="pv-h">Loading / Empty</div>
+        <div class="pv-s">骨架屏优先；spinner 仅用于短等待。</div>
+        <div class="pv-panel">
+          <div class="tb-card" style="margin-bottom:12px">
+            <div class="tb-skeleton" style="width:56%;height:13px;margin-bottom:10px"></div>
+            <div class="tb-skeleton" style="width:88%;height:9px;margin-bottom:6px"></div>
+            <div class="tb-skeleton" style="width:70%;height:9px"></div>
+          </div>
+          <div class="tb-empty">
+            <div class="tb-empty__icon"><span class="tb-deco">+</span></div>
+            <div class="tb-card__title">No rooms yet</div>
+            <div class="tb-card__body" style="margin:4px 0 12px">Create one and invite a friend.</div>
+            <button class="tb-btn tb-btn--sm tb-btn--outline" type="button">Create room</button>
+            <div style="margin-top:12px"><span class="tb-spinner"></span> <span class="tb-caption">Matching an opponent…</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pv-sec">
+      <div class="pv-h">二级页骨架 · 180px 侧栏 + 房间卡</div>
+      <div class="pv-s">移动端侧栏折叠为顶部 tabs；栅格 4→3→2→1。</div>
+      <div class="tb-shell" style="border:1px solid var(--tb-line);border-radius:12px;overflow:hidden">
+        <div class="tb-sidebar">
+          <div class="tb-side-nav" aria-current="page">Lobby</div>
+          <div class="tb-side-nav">My games</div>
+          <div class="tb-side-nav">Rank</div>
+          <div class="tb-side-nav">Tournament</div>
+        </div>
+        <div class="tb-shell__main">
+          <div class="tb-h3">Open rooms</div>
+          <div class="tb-caption" style="margin-bottom:12px">Join instantly or create your own</div>
+          <div class="tb-room" style="margin-bottom:9px"><span class="tb-room__code">K7M3QP</span><span class="tb-chip tb-chip--teal">Waiting</span><span style="margin-left:auto"><button class="tb-btn tb-btn--sm tb-btn--primary" type="button">Join</button></span></div>
+          <div class="tb-room" style="margin-bottom:9px"><span class="tb-room__code">R4T9BX</span><span class="tb-chip">Chess · 10 min</span><span class="tb-caption" style="margin-left:auto">2 / 2</span></div>
+          <div class="tb-room"><span class="tb-room__code">M2W8KD</span><span class="tb-chip tb-chip--teal">Waiting</span><span style="margin-left:auto"><button class="tb-btn tb-btn--sm tb-btn--primary" type="button">Join</button></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pv-grid2 pv-sec">
+      <div>
+        <div class="pv-h">游戏内 A · PlayerBar / Timer / 落子反馈</div>
+        <div class="pv-s">4 类通用件纯样式，不碰判分与落子逻辑。</div>
+        <div class="tb-arena">
+          <div class="tb-playerbar">
+            <div class="tb-avatar">Y</div><div><div class="tb-player__name">You</div><div class="tb-player__sub">Rating 1284</div></div>
+            <div class="tb-timer">
+              <svg class="tb-ring" viewBox="0 0 40 40"><circle class="tb-ring__bg" cx="20" cy="20" r="16"/><circle class="tb-ring__fg" cx="20" cy="20" r="16"/></svg>
+              <span class="tb-timer__num">08.4</span>
+            </div>
+            <div class="tb-avatar tb-avatar--rival">R</div><div><div class="tb-player__name">Rival</div><div class="tb-player__sub">Rating 1301</div></div>
+          </div>
+          <div class="tb-board-wrap"><div class="pv-chess" id="chess"></div></div>
+          <div style="padding:0 16px 16px" class="pv-row">
+            <span class="tb-chip tb-chip--teal"><span class="tb-dot"></span>Your turn</span>
+            <span class="tb-chip tb-chip--ember">Last move · e4</span>
+            <span class="pv-tag" style="margin-left:auto">实心=已落子 · 描边=空格</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="pv-h">游戏内 B · 选项判分 / 结算弹层</div>
+        <div class="pv-s">正确绿 / 错误玫红 / 禁用作答；结算胜负不用品牌色。</div>
+        <div class="tb-arena" style="padding:18px;position:relative;min-height:330px">
+          <div class="tb-h3" style="margin-bottom:12px">Which planet has the most moons?</div>
+          <button class="tb-opt" disabled type="button"><span class="tb-opt__key">A</span>Jupiter</button>
+          <button class="tb-opt" data-state="correct" disabled type="button" style="margin:7px 0"><span class="tb-opt__key">B</span>Saturn <span class="tb-chip tb-chip--ok" style="margin-left:auto">+15</span></button>
+          <button class="tb-opt" data-state="wrong" disabled type="button" style="margin-bottom:7px"><span class="tb-opt__key">C</span>Uranus</button>
+          <button class="tb-opt" disabled type="button"><span class="tb-opt__key">D</span>Neptune</button>
+          <div class="tb-result-veil" style="margin-top:18px;position:relative;border-radius:12px">
+            <div class="tb-result-card" data-outcome="win">
+              <div class="tb-result-card__icon">W</div>
+              <div class="tb-h2">You win!</div>
+              <div class="tb-caption">45 – 30 · +18 rating · 10 rounds</div>
+              <button class="tb-btn tb-btn--primary tb-btn--block" type="button">Play again</button>
+              <button class="tb-btn tb-btn--outline tb-btn--block" style="margin-top:8px" type="button">Share result</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pv-sec">
+      <div class="pv-h">令牌抽检</div>
+      <div class="pv-panel">
+        <div class="pv-row">
+          <span class="pv-tag" id="tBrand">--tb-brand: ?</span>
+          <span class="pv-tag" id="tInk">--tb-ink: ?</span>
+          <span class="pv-tag" id="tPaper">--tb-paper: ?</span>
+          <span class="pv-tag" id="tTap">--tb-tap: ?</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+  <footer class="tb-footer"><span>About</span><span>Privacy</span><span>Terms</span><span>TRI-BRAND UI v2 · generated by build.mjs</span></footer>
+</div>
+
+<div class="tb-toast" id="toast"><span class="tb-chip tb-chip--ok"><span class="tb-dot"></span>Done</span><span>Room link copied.</span></div>
+<div class="tb-modal-veil" id="veil">
+  <div class="tb-modal" role="dialog" aria-modal="true">
+    <div class="tb-h3" style="margin-bottom:8px">Invite a friend</div>
+    <div class="tb-card__body" style="margin-bottom:16px">Share the room code. It expires after 10 minutes.</div>
+    <div class="tb-field" style="margin-bottom:16px"><label class="tb-field__label">Room code</label><input class="tb-input" value="K7M3QP" readonly></div>
+    <button class="tb-btn tb-btn--primary tb-btn--block" id="closeBtn" type="button">Copy &amp; close</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  function tokens(){
+    var cs=getComputedStyle(root);
+    ['brand','ink','paper','tap'].forEach(function(k){
+      var el=document.getElementById('t'+k.charAt(0).toUpperCase()+k.slice(1));
+      if(el) el.textContent='--tb-'+k+': '+cs.getPropertyValue('--tb-'+k).trim();
+    });
+  }
+  document.getElementById('themeBtn').addEventListener('click',function(){
+    var dark=root.getAttribute('data-theme')==='dark';
+    root.setAttribute('data-theme',dark?'light':'dark');
+    this.textContent=dark?'切换暗色':'切换亮色';
+    var m=document.querySelector('meta[name="theme-color"]');
+    if(m)m.setAttribute('content',dark?'#F4F5F9':'#12131F');
+    tokens();
+  });
+  var toast=document.getElementById('toast'),tt;
+  document.getElementById('toastBtn').addEventListener('click',function(){
+    toast.setAttribute('data-open','true');clearTimeout(tt);
+    tt=setTimeout(function(){toast.setAttribute('data-open','false')},2400);
+  });
+  var veil=document.getElementById('veil');
+  document.getElementById('modalBtn').addEventListener('click',function(){veil.setAttribute('data-open','true')});
+  document.getElementById('closeBtn').addEventListener('click',function(){veil.setAttribute('data-open','false')});
+  veil.addEventListener('click',function(e){if(e.target===veil)veil.setAttribute('data-open','false')});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')veil.setAttribute('data-open','false')});
+  var tabs=document.querySelector('.tb-tabs');
+  tabs.addEventListener('click',function(e){
+    var b=e.target.closest('.tb-tab');if(!b)return;
+    [].forEach.call(tabs.querySelectorAll('.tb-tab'),function(x){x.setAttribute('aria-selected',x===b?'true':'false')});
+  });
+  var h='';for(var r=0;r<8;r++)for(var c=0;c<8;c++){
+    var light=(r+c)%2===0,inner='';
+    if((r===2&&c===4))inner='<span class="pv-piece f last"></span>';
+    else if((r===4&&c===3))inner='<span class="pv-piece f"></span>';
+    else if((r===0&&c===1))inner='<span class="pv-piece"></span>';
+    else if((r===3&&c===3))inner='<span class="tb-legal"></span>';
+    h+='<i class="'+(light?'l':'d')+'">'+inner+'</i>';
+  }
+  document.getElementById('chess').innerHTML=h;
+  tokens();
+})();
+</script>
+</body>
+</html>

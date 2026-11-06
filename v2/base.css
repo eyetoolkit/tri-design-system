@@ -1,0 +1,72 @@
+/* ============================================================
+   TRI-BRAND UI v2 · base.css
+   ------------------------------------------------------------
+   硬约束：不做全局 reset、不定义 :root 颜色。
+   三站存量皮肤各有 reset / 字体 / 变量，全局规则会按加载顺序
+   互相覆盖（11-05 已踩过 --ink/--paper 反转导致暗色翻车）。
+   因此本层只作用于 .tb-* 组件与 .tb-scope 容器。
+   ============================================================ */
+
+.tb-scope,
+.tb-scope *,
+[class^="tb-"],
+[class^="tb-"] *,
+[class*=" tb-"],
+[class*=" tb-"] * { box-sizing: border-box; }
+
+.tb-scope {
+  font-family: var(--tb-ui);
+  color: var(--tb-paper);
+  background: var(--tb-ink);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ── 排版尺度（展示 Space Grotesk / 正文 Sora / 数字等宽） ── */
+.tb-display { font-family: var(--tb-disp); font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.08; letter-spacing: -.03em; color: var(--tb-paper); }
+.tb-h2      { font-family: var(--tb-disp); font-size: 1.5rem; font-weight: 700; line-height: 1.2; letter-spacing: -.02em; color: var(--tb-paper); }
+.tb-h3      { font-family: var(--tb-disp); font-size: 1.125rem; font-weight: 700; line-height: 1.25; letter-spacing: -.015em; color: var(--tb-paper); }
+.tb-body    { font-family: var(--tb-ui); font-size: .875rem; line-height: 1.65; color: var(--tb-paper); }
+.tb-caption { font-family: var(--tb-ui); font-size: .75rem; line-height: 1.55; color: var(--tb-mute); }
+.tb-mono    { font-family: var(--tb-mono); font-variant-numeric: tabular-nums; }
+
+/* --tb-mute2 约 2.9:1，仅允许用于 >=24px 大字或非文本图形，禁止作正文 */
+.tb-deco    { color: var(--tb-mute2); font-size: 1.5rem; font-weight: 700; }
+
+/* ── 焦点态（WCAG 2.4.7，所有可交互 tb-* 元素） ── */
+.tb-btn:focus-visible,
+.tb-input:focus-visible,
+.tb-tab:focus-visible,
+.tb-nav a:focus-visible,
+.tb-icon-btn:focus-visible,
+.tb-opt:focus-visible,
+.tb-room-btn:focus-visible {
+  outline: 2px solid var(--tb-brand-600);
+  outline-offset: 2px;
+}
+
+/* ── 通用工具（只在 tb-scope 内生效） ── */
+.tb-scope .tb-row    { display: flex; gap: var(--tb-s3); flex-wrap: wrap; align-items: center; }
+.tb-scope .tb-stack  { display: flex; flex-direction: column; gap: var(--tb-s3); }
+.tb-sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+.tb-skip {
+  position: absolute; top: var(--tb-s2); left: var(--tb-s2); z-index: var(--tb-z-toast);
+  padding: var(--tb-s3) var(--tb-s5); border-radius: var(--tb-r-btn);
+  background: var(--tb-brand-600); color: var(--tb-on-brand); font-weight: 600;
+  transform: translateY(-200%);
+}
+.tb-skip:focus { transform: translateY(0); }
+
+/* ── 动效降级（WCAG 2.3.3） ── */
+@media (prefers-reduced-motion: reduce) {
+  [class^="tb-"], [class^="tb-"]::before, [class^="tb-"]::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

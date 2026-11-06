@@ -1,0 +1,150 @@
+/* ============================================================
+   TRI-BRAND UI v2 · components.css
+   基础组件全状态：default / hover / active / focus / disabled /
+   loading / error / empty。命名 .tb-* 与三站存量皮肤隔离。
+   颜色一律 var(--tb-*)，值由 fe-shared/shared/tokens.css 生成。
+   ============================================================ */
+
+/* ── Button ─────────────────────────────────────────────── */
+.tb-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--tb-s2);
+  min-height: var(--tb-tap); padding: 0 var(--tb-s5);
+  border: 1px solid transparent; border-radius: var(--tb-r-btn);
+  font-family: var(--tb-ui); font-size: .875rem; font-weight: 600;
+  color: var(--tb-paper); background: var(--tb-ink3);
+  text-decoration: none; cursor: pointer; user-select: none;
+  transition: transform var(--tb-dur-fast), box-shadow var(--tb-dur-fast), background var(--tb-dur-fast);
+}
+.tb-btn:hover:not(:disabled) { transform: translateY(-1px); box-shadow: var(--tb-e2); }
+.tb-btn:active:not(:disabled) { transform: translateY(0); }
+.tb-btn:disabled { opacity: .45; cursor: not-allowed; }
+.tb-btn[aria-busy="true"] { pointer-events: none; opacity: .75; }
+
+/* 主行动 = 靛蓝（三站统一，替换琥珀/靛蓝混用） */
+.tb-btn--primary { background: var(--tb-brand-600); color: #fff; }
+.tb-btn--primary:hover:not(:disabled) { background: var(--tb-brand-hover); }
+html[data-theme="dark"] .tb-btn--primary { color: var(--tb-on-brand); }
+
+/* 琥珀仅用于计时 / 得分 / 胜利高光；#F59E0B + 白字 2.31:1，必须配深字 */
+.tb-btn--ember { background: var(--tb-ember); color: #1E1B39; }
+.tb-btn--ember:hover:not(:disabled) { background: var(--tb-ember-dim); color: #fff; }
+
+.tb-btn--outline { background: transparent; border-color: var(--tb-line2); color: var(--tb-brand-700); }
+html[data-theme="dark"] .tb-btn--outline { color: var(--tb-brand-700); }
+.tb-btn--ghost { background: transparent; color: var(--tb-mute); }
+.tb-btn--ghost:hover:not(:disabled) { background: var(--tb-ink3); }
+.tb-btn--danger { background: var(--tb-danger); color: #fff; }
+
+.tb-btn--sm { min-height: 36px; padding: 0 var(--tb-s3); font-size: .78rem; border-radius: 9px; }
+.tb-btn--lg { min-height: 52px; padding: 0 var(--tb-s6); font-size: .94rem; }
+.tb-btn--block { width: 100%; }
+
+.tb-icon-btn {
+  display: inline-grid; place-items: center;
+  width: var(--tb-tap); height: var(--tb-tap);
+  border: 1px solid var(--tb-line); border-radius: var(--tb-r-btn);
+  background: var(--tb-ink2); color: var(--tb-paper); cursor: pointer;
+}
+.tb-icon-btn:hover { border-color: var(--tb-line2); }
+
+/* ── Card ───────────────────────────────────────────────── */
+.tb-card {
+  background: var(--tb-ink2); border: 1px solid var(--tb-line);
+  border-radius: var(--tb-r-card); padding: var(--tb-s5);
+  box-shadow: var(--tb-e1);
+}
+.tb-card--interactive {
+  transition: box-shadow var(--tb-dur-base), transform var(--tb-dur-base), border-color var(--tb-dur-fast);
+}
+.tb-card--interactive:hover { box-shadow: var(--tb-e3); transform: translateY(-3px); border-color: var(--tb-line2); }
+.tb-card__title { font-family: var(--tb-disp); font-size: 1rem; font-weight: 700; color: var(--tb-paper); }
+.tb-card__body { font-size: .78rem; color: var(--tb-mute); line-height: 1.65; }
+
+/* ── Chip / Badge ───────────────────────────────────────── */
+.tb-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  min-height: 26px; padding: 0 10px; border-radius: var(--tb-r-pill);
+  font-size: .68rem; font-weight: 600;
+  background: var(--tb-brand-subtle); color: var(--tb-brand-700);
+}
+.tb-chip--ember { background: var(--tb-ember-soft); color: var(--tb-ember-dim); }
+.tb-chip--teal  { background: var(--tb-teal-soft); color: var(--tb-teal-text); }
+.tb-chip--ok    { background: rgba(5,150,105,.12); color: var(--tb-success); }
+.tb-chip--danger{ background: rgba(225,29,72,.10); color: var(--tb-danger); }
+.tb-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; display: inline-block; }
+
+/* ── Form ───────────────────────────────────────────────── */
+.tb-field { display: flex; flex-direction: column; gap: 6px; }
+.tb-field__label { font-family: var(--tb-ui); font-size: .75rem; font-weight: 600; color: var(--tb-paper); }
+.tb-input {
+  height: var(--tb-tap); width: 100%; padding: 0 var(--tb-s3);
+  border: 1px solid var(--tb-line); border-radius: var(--tb-r-btn);
+  background: var(--tb-ink2); color: var(--tb-paper);
+  font-family: var(--tb-ui); font-size: .875rem;
+  transition: border-color var(--tb-dur-fast), box-shadow var(--tb-dur-fast);
+}
+.tb-input::placeholder { color: var(--tb-mute2); }
+.tb-input:focus { outline: 0; border-color: var(--tb-brand-600); box-shadow: 0 0 0 3px var(--tb-brand-ring); }
+.tb-input[aria-invalid="true"] { border-color: var(--tb-danger); }
+.tb-field__hint { font-size: .68rem; color: var(--tb-mute); }
+.tb-field__hint--error { color: var(--tb-danger); }
+/* 错误态同时给描边 + 文字，不靠颜色单独表意 */
+.tb-field__hint--error::before { content: "! "; font-weight: 700; }
+
+/* ── Tabs ───────────────────────────────────────────────── */
+.tb-tabs {
+  display: flex; gap: var(--tb-s1);
+  border-bottom: 1px solid var(--tb-line);
+  max-width: 100%; overflow-x: auto; scrollbar-width: none;
+}
+.tb-tabs::-webkit-scrollbar { display: none; }
+.tb-tab {
+  flex: none; white-space: nowrap; min-height: var(--tb-tap);
+  padding: 10px 14px; border: 0; border-bottom: 2px solid transparent;
+  margin-bottom: -1px; background: transparent;
+  color: var(--tb-mute); font-size: .8125rem; font-weight: 600; cursor: pointer;
+}
+.tb-tab:hover { color: var(--tb-paper); }
+.tb-tab[aria-selected="true"] { color: var(--tb-brand-700); border-bottom-color: var(--tb-brand-600); }
+
+/* ── Skeleton / Spinner / Empty ─────────────────────────── */
+.tb-skeleton {
+  background: linear-gradient(90deg, var(--tb-ink3) 25%, var(--tb-line) 50%, var(--tb-ink3) 75%);
+  background-size: 200% 100%; animation: tb-shimmer 1.5s infinite; border-radius: 6px;
+}
+@keyframes tb-shimmer { to { background-position: -200% 0; } }
+.tb-spinner {
+  width: 20px; height: 20px; border: 2px solid var(--tb-brand-subtle);
+  border-top-color: var(--tb-brand-600); border-radius: 50%;
+  animation: tb-spin .8s linear infinite; display: inline-block;
+}
+@keyframes tb-spin { to { transform: rotate(360deg); } }
+.tb-empty { text-align: center; padding: var(--tb-s6); }
+.tb-empty__icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: var(--tb-brand-subtle); display: grid; place-items: center; margin: 0 auto 12px;
+}
+
+/* ── Toast / Modal ──────────────────────────────────────── */
+.tb-toast {
+  position: fixed; right: var(--tb-s6); bottom: var(--tb-s6); z-index: var(--tb-z-toast);
+  display: flex; align-items: center; gap: var(--tb-s3);
+  background: var(--tb-ink2); border: 1px solid var(--tb-line2);
+  border-radius: var(--tb-r-card); box-shadow: var(--tb-e3);
+  padding: var(--tb-s3) var(--tb-s4); font-size: .78rem; color: var(--tb-paper);
+  transform: translateY(14px); opacity: 0; pointer-events: none;
+  transition: transform var(--tb-dur-base), opacity var(--tb-dur-base);
+}
+.tb-toast[data-open="true"] { transform: translateY(0); opacity: 1; pointer-events: auto; }
+
+.tb-modal-veil {
+  position: fixed; inset: 0; z-index: var(--tb-z-modal);
+  background: rgba(18,19,31,.55); backdrop-filter: blur(4px);
+  display: none; place-items: center; padding: var(--tb-s5);
+}
+.tb-modal-veil[data-open="true"] { display: grid; }
+.tb-modal {
+  background: var(--tb-ink2); border: 1px solid var(--tb-line);
+  border-radius: var(--tb-r-card); box-shadow: var(--tb-e3);
+  padding: var(--tb-s6); width: min(380px, 100%);
+}

@@ -1,0 +1,33 @@
+{
+  "mode": "dry-run",
+  "link": "<link rel=\"stylesheet\" href=\"/shared/tri-ui.css?v=1\">",
+  "sites": [
+    {
+      "site": "mathduel",
+      "files": 23,
+      "attached": 0,
+      "noStylesheet": [],
+      "pendingCount": 23
+    },
+    {
+      "site": "boardduel",
+      "files": 50,
+      "attached": 0,
+      "noStylesheet": [],
+      "pendingCount": 50
+    },
+    {
+      "site": "memoryduel",
+      "files": 33,
+      "attached": 0,
+      "noStylesheet": [],
+      "pendingCount": 33
+    }
+  ],
+  "totals": {
+    "files": 106,
+    "pending": 106,
+    "attached": 0,
+    "noStylesheet": 0
+  }
+}
