@@ -131,7 +131,7 @@ node scripts/push-v2-source.mjs --apply    # 推 v2/ 源码到设计系统仓
 | 接入页面 | **106**（mathduel 23 / boardduel 50 / memoryduel 33），远端核验 106/106 有 link |
 | 产物 | `dist/tri-ui.css` 27,031 B，MD5 `864da5d6bdbc2e2c5284b28c84c3316d`，四处字节一致 |
 | SW 版本 | `mdsw-v2` / `bdsw-v3` / `mdusw-v5` |
-| 最终远端 tip | fe-shared `2a533dd57` · mathduel `4a4dd681e` · boardduel `63a39bb2b` · memoryduel `decf90fa9` · tri-design-system `97d677701` |
+| 最终远端 tip | fe-shared `2a533dd57` · mathduel `4a4dd681e` · boardduel `63a39bb2b` · memoryduel `decf90fa9` · 本仓源码首推 `708af3628`（后续规范同步笔见远端 main） |
 | 线上验证 | 首页 3 站 × 2 档全绿；6 个游戏页全绿；CI 与 CF Pages 部署全部 success |
 
 **P0 边界**：只完成「样式层接入与令牌可用」，chrome 骨架、首页模板、游戏内组件接线属于 P1/P2，三站存量结构（侧栏、双 CTA 等）本轮未改。
