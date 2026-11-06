@@ -80,11 +80,26 @@ node scripts/check-tokens.mjs       # 令牌逐值守卫（亮/暗 + 越界变�
 node --test tests/tokens.test.mjs   # 单测
 node scripts/attach.mjs             # 干跑：三站接入清单
 node scripts/publish-shared.mjs     # 干跑：分发计划
+node scripts/verify-preview.mjs     # 组件层真浏览器验证 + Hero 占比硬断言
+node scripts/build-standalone.mjs   # 生成自包含预览（CSS 内联 + 字体 base64）
+
+# —— P0-2 部署工具（需 GH_TOKEN；默认 dry-run，--apply 才写远端）——
+node scripts/deploy-p0-2.mjs a --apply      # A：推 shared/tri-ui.css
+node scripts/deploy-p0-2.mjs raw css        # 等 raw 收敛
+node scripts/deploy-p0-2.mjs b --apply      # B：manifest 登记
+node scripts/deploy-p0-2.mjs c --apply      # C：三站 106 页接入 + SW V
+node scripts/deploy-p0-2.mjs css --apply    # 产物重分发（fe-shared + 三站）
+node scripts/verify-deploy.mjs remote       # 远端 tree 硬核验
+node scripts/verify-deploy.mjs live         # 线上真浏览器 3 站 × 2 档
+node scripts/verify-live-games.mjs          # 线上游戏页冒烟 + 本地落子
+node scripts/push-v2-source.mjs --apply    # 推 v2/ 源码到设计系统仓
 ```
 
 仓库独立 clone 时可用 `FE_SHARED_TOKENS=<path>` 指定真相源。
 
-## 分发时序（顺序不可颠倒）
+**构建产物必须可复现**：`build.mjs` 不得写入时间戳、随机数等墙钟字段。分发通道与远端核验按字节比对，产物每次构建都变会造成假漂移（2026-11-06 已修）。
+
+## 分发时序（顺序不可颠倒 · 2026-11-06 P0-2 已按此执行）
 
 1. `node scripts/publish-shared.mjs --apply` → 写 `fe-shared/shared/tri-ui.css`
 2. **推送 fe-shared**（唯一入口 `git push origin main`），等 GitHub raw CDN 收敛并实测可取
@@ -97,6 +112,8 @@ node scripts/publish-shared.mjs     # 干跑：分发计划
 
 > 第 2→3 步不能跳：三站 `sync-shared.mjs` 从 **GitHub raw** 拉文件，本地改 manifest 不会被 CI 看到，先加清单会让三站门禁恒红。`publish-shared.mjs` 刻意不自动改 manifest。
 
+**部署通道例外**：常规唯一入口 `git push origin main`。但 2026-11-06 github.com git 协议全仓不通，且本地 `origin/main` 缓存全部落后真实远端 tip，故由 `gh.mjs` 走 Git Data API：parent 恒取实时远端 tip、`base_tree` 叠加变更、`force:false` 快进，待改文件基准一律 GET 远端 blob（绝不读本地旧 worktree）。见 `deploy-p0-2.mjs` 的 A/B/C/css 分段。
+
 ## 验收
 
 | 项 | 标准 |
@@ -105,4 +122,18 @@ node scripts/publish-shared.mjs     # 干跑：分发计划
 | 渲染 | 真浏览器 1440×900 / 390×844 / 320×720 × 亮暗，0 横向溢出 / 0 JS 异常 |
 | 主题 | `--tb-brand` 亮 `#4F46E5` ↔ 暗 `#818CF8`；页底亮 `#F4F5F9` ↔ 暗 `#12131F` |
 | 门禁 | `npm test` · `tsc --noEmit` · `sync:shared:check` 全绿 |
-| 上线 | 唯一入口 `git push origin main`，推后查 Actions 最终 conclusion + tree 比对 |
+| 上线 | 常规唯一入口 `git push origin main`（git 协议不通时走 `gh.mjs` API 快进）；推后查 Actions 最终 conclusion + 远端 tree 内容比对（不只看 sha） |
+
+## P0-2 状态（2026-11-06）
+
+| 项 | 值 |
+|---|---|
+| 接入页面 | **106**（mathduel 23 / boardduel 50 / memoryduel 33），远端核验 106/106 有 link |
+| 产物 | `dist/tri-ui.css` 27,031 B，MD5 `864da5d6bdbc2e2c5284b28c84c3316d`，四处字节一致 |
+| SW 版本 | `mdsw-v2` / `bdsw-v3` / `mdusw-v5` |
+| 最终远端 tip | fe-shared `2a533dd57` · mathduel `4a4dd681e` · boardduel `63a39bb2b` · memoryduel `decf90fa9` · tri-design-system `708af3628` |
+| 线上验证 | 首页 3 站 × 2 档全绿；6 个游戏页全绿；CI 与 CF Pages 部署全部 success |
+
+**P0 边界**：只完成「样式层接入与令牌可用」，chrome 骨架、首页模板、游戏内组件接线属于 P1/P2，三站存量结构（侧栏、双 CTA 等）本轮未改。
+
+未来更新 `tri-ui.css` 内容时：HTML 固定 `?v=1` 而 CF 缓存键忽略 query → 需**文件名版本化或再次 purge**，并同步升三站 SW `V`。
